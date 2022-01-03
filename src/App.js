@@ -7,6 +7,22 @@ import ExpenseList from './component/ExpenseList';
 import AddExpenseForm from './component/AddExpenseForm';
 import { AppProvider } from './context/AppContext';
 
+import {auth} from "./firebase"
+
+auth()
+  .signInAnonymously()
+  .then(() => {
+    console.log('User signed in anonymously');
+  })
+  .catch(error => {
+    if (error.code === 'auth/operation-not-allowed') {
+      console.log('Enable anonymous in your firebase console.');
+    }
+
+    console.error(error);
+  });
+
+
 const App = () => {
     return (
         <AppProvider>
@@ -41,6 +57,8 @@ const App = () => {
 
     );
 };
+
+
 
 export default App;
 
